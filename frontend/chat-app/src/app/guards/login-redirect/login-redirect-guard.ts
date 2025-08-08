@@ -1,10 +1,10 @@
-import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
-import { AuthService } from '../services/auth/auth.service';
+import { inject } from '@angular/core';
+import { AuthService } from '../../services/auth/auth.service';
 import { map, take, filter } from 'rxjs/operators';
 import { combineLatest } from 'rxjs';
 
-export const authGuard: CanActivateFn = () => {
+export const loginRedirectGuard: CanActivateFn = () => {
   const authService = inject(AuthService);
   const router = inject(Router);
 
@@ -13,11 +13,10 @@ export const authGuard: CanActivateFn = () => {
     take(1),
     map(([user]) => {
       if (user) {
-        return true;
-      } else {
-        router.navigate(['/login']);
+        router.navigate(['/chat']);
         return false;
       }
+      return true;
     })
   );
 };
