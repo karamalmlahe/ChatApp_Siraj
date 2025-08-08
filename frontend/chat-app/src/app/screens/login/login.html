@@ -1,0 +1,23 @@
+<div class="login-container">
+  <div class="login-card">
+    <div class="login-header">
+      <h1>Welcome to Chat App</h1>
+      <p>Sign in to start chatting with your friends</p>
+    </div>
+    <div class="auth-section">
+      <button
+        class="google-signin-btn"
+        (click)="signInWithGoogle()"
+        [disabled]="isLoading"
+      >
+        <div class="btn-content">
+          <i class="fab fa-google google-icon"></i>
+          <span>{{ isLoading ? "Signing in..." : "Sign in with Google" }}</span>
+        </div>
+      </button>
+      <div *ngIf="errorMessage" class="error-message">
+        {{ errorMessage }}
+      </div>
+    </div>
+  </div>
+</div>
