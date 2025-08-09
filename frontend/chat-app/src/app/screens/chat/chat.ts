@@ -69,6 +69,7 @@ export class Chat {
 
   async loadMessages(selectedUser: string) {
     this.messages = await this.chatService.getMessages(selectedUser);
+    this.scrollToBottom();
   }
 
   selectUser(user: User) {
