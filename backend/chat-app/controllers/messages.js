@@ -3,14 +3,14 @@ const router = express.Router();
 const Message = require("../models/message");
 const firebaseAuth = require("../middlewares/firebaseAuth");
 
-router.get("/", firebaseAuth, async (req, res) => {
-  const user1 = req.user.uid;
-  const { user2 } = req.query;
+router.get("/:selectedUser", firebaseAuth, async (req, res) => {
+  const currentUser = req.user.uid;
+  const selectedUser = req.params.selectedUser; 
   try {
     const messages = await Message.find({
       $or: [
-        { senderId: user1, receiverId: user2 },
-        { senderId: user2, receiverId: user1 },
+        { senderId: currentUser, receiverId: selectedUser },
+        { senderId: selectedUser, receiverId: currentUser },
       ],
     }).sort({ timestamp: 1 });
     res.json({
